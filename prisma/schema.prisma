@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["mongoDb"]
 }
 
@@ -12,10 +12,15 @@ datasource db {
 }
 
 model users {
-  id       String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name     String
-  lastName String
-  password String
-  email    String
+  id         String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name       String
+  lastName   String
+  password   String
+  email      String
+  experience String
+
 
 }
+
+
+
