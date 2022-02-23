@@ -20,11 +20,24 @@ const setData = async () => {
       roles: {
         create: {
           title: 'student',
+          students: {
+            create: {
+              name: 'sami',
+              lastName: 'shoukat',
+              rollNo: '123',
+            },
+          },
+          teachers: {
+            create: {
+              name: 'sami',
+              lastName: 'shoukat',
+            },
+          },
         },
       },
-      sessions:{
-        create:{
-          session:'2020 to 2024'
+      sessions: {
+        create: {
+          session: '2020 to 2024',
         },
       },
     },
