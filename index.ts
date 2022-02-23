@@ -1,26 +1,43 @@
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
-import {data1} from './src/data'
+const PORT = 8000;
 const prisma = new PrismaClient();
 const app = express();
-const PORT = 4000;
 async function main() {
+  // Connect the client
   await prisma.$connect();
-  const allUsers = await prisma.users.findMany();
+  // ... you will write your Prisma Client queries here
+  const allUsers = await prisma.user.findMany();
   console.log(allUsers);
-  console.dir(allUsers, { depth: null });
   setData();
 }
 
 const setData = async () => {
-  const addUsers = await prisma.users.create(data1);
-  console.log(`data entred is ${addUsers}`);
+  await prisma.user.create({
+    data: {
+      name: 'sami',
+      email: 'samishoukat123@gmail.com',
+      roles: {
+        create: {
+          title: 'student',
+        },
+      },
+      sessions:{
+        create:{
+          session:'2020 to 2024'
+        },
+      },
+    },
+  });
 };
 
-main().catch((e) => {
-  throw e;
-});
-
+main()
+  .catch((e) => {
+    throw e;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
 app.listen(PORT, () => {
-  console.log('server is working');
+  console.log(`server is running at ${PORT} port`);
 });
