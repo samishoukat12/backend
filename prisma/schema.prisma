@@ -11,47 +11,41 @@ generator client {
   previewFeatures = ["mongoDb"]
 }
 
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  // output             = "../prisma/generated/type-graphql"
+  // emitTranspiledCode = true
+}
+
 // id String @id @default(auto()) @map("_id") @db.ObjectId
 
 model user {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  email String @unique
-
-  roles    Role[]
-  sessions Session[]
+  id       String    @id @default(cuid()) @map("_id")
+  name     String
+  email    String    @unique
+  students Student[]
+  teachers Teacher[]
+  address  String?   @default("")
+  role     Role      @unique
 }
 
-model Role {
-  id       String     @id @default(auto()) @map("_id") @db.ObjectId
-  title    String
-  students Student[]
-  teachers Teachers[]
-  user     user?      @relation(fields: [userId], references: [id])
-  userId   String?    @db.ObjectId
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
 }
 
 model Student {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  lastName String
-  rollNo   String
-  Role     Role?   @relation(fields: [roleId], references: [id])
-  roleId   String? @db.ObjectId
+  id     String  @id @default(cuid()) @map("_id")
+  name   String
+  rollNo Int?
+  user   user?   @relation(fields: [userId], references: [id])
+  userId String?
 }
 
-model Teachers {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  lastName String
-  Role     Role?   @relation(fields: [roleId], references: [id])
-  roleId   String? @db.ObjectId
-}
-
-model Session {
-
-  id      String  @id @default(auto()) @map("_id") @db.ObjectId
-  session String
-  user    user?   @relation(fields: [userId], references: [id])
-  userId  String? @db.ObjectId
+model Teacher {
+  id     String  @id @default(cuid()) @map("_id")
+  name   String
+  user   user?   @relation(fields: [userId], references: [id])
+  userId String?
 }
