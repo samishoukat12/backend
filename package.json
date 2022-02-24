@@ -7,6 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": " nodemon --exec ts-node index.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samishoukat12/backend"
+  },
   "author": "sami",
   "license": "ISC",
   "dependencies": {
