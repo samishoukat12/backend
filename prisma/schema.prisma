@@ -26,8 +26,6 @@ model user {
   password String  @unique
   address  String? @default("")
   role     Role    @unique
-  // students Student[]
-  // teachers Teacher[]
   token    String  @default("io")
 
 

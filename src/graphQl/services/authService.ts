@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { UserInfo } from './../model/user-info';
 import { Role } from '@generated/type-graphql';
@@ -10,6 +11,7 @@ import Container, { Inject, Service } from "typedi";
 import { prismaToken } from '../types/typedi-tokens';
 import jwtDecode from "jwt-decode";
 import 'reflect-metadata'
+import { sign } from 'jsonwebtoken';
 
 export interface IJwtDecode {
     (authHeader: string): any;
@@ -78,14 +80,13 @@ export class AuthService implements IAuthService {
                 name,
                 email,
                 password: hashedPassword,
-                role,
-               token:"io"
+                role
             }
         })
         return user
     }
 
-    login = async (email: string, password: string): Promise<user> => {
+    login = async (email: string, password: string,): Promise<user> => {
         const user = await this.prisma.user.findUnique({
             where: {
                 email,
@@ -93,16 +94,24 @@ export class AuthService implements IAuthService {
             rejectOnNotFound: true,
 
         });
+        if (!user) {
+            return user
+        }
         if (!(await bycrypt.compare(password, user.password))) {
             throw new Error('password not correct')
         }
         const jwtKey = "dasgvjtnkkweroutojfldmvturhglmslfjgibtrle"
-        var jstoken = jwt.sign({
-            id: user.id, role: user.role, email: user.email, name: user.name
+        var RefreashToken = sign({
+            userId: user.id
+        }, jwtKey, { expiresIn: 7 });
+        var AccessToken = sign({
+            userid: user.id
         }, jwtKey,
             { expiresIn: 5 }
         );
-        user.token = jstoken;
+
+        // res.cookie('resfreash token', RefreashToken, { expires: 60 * 60 * 24 * 7 })
+        user.token = AccessToken;
         return user;
     }
 }
