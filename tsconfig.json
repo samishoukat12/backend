@@ -31,7 +31,8 @@
     "emitDecoratorMetadata": true,
     "rootDir": "src",
     "noImplicitAny": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    
   },
   "include": [
     "src/**/*"

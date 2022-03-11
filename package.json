@@ -13,6 +13,12 @@
     "type": "git",
     "url": "git+https://github.com/samishoukat12/backend"
   },
+  "engines": {
+    "npm": ">=6.0.0",
+    "preinstall": "echo 'engine-strict=true' >> .npmrc",
+    "node": ">=14.0.0"
+  },
+  
   "author": "sami",
   "license": "ISC",
   "dependencies": {
