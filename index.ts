@@ -12,7 +12,7 @@ import express from 'express';
 import { UserContext } from './src/graphQl/types/user-context';
 import { buildSchema, NonEmptyArray } from 'type-graphql';
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 async function main() {
   try {

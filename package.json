@@ -2,7 +2,7 @@
   "name": "prisma",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && npm run start",
@@ -14,9 +14,8 @@
     "url": "git+https://github.com/samishoukat12/backend"
   },
   "engines": {
-    "npm": ">=6.0.0",
-    "preinstall": "echo 'engine-strict=true' >> .npmrc",
-    "node": ">=14.0.0"
+    "npm": "6.14.15",
+    "node": "14.18.0"
   },
   
   "author": "sami",
